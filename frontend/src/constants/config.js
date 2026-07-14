@@ -14,7 +14,7 @@ export const DROPZONE_ACCEPT = {
 };
 
 /** Backend base URL — uses proxy in dev, full URL in production */
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || '';
 
 /** Axios timeout in milliseconds: 90s to cover Render cold start + OCR */
 export const AXIOS_TIMEOUT_MS = 90_000;

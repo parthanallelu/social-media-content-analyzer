@@ -30,16 +30,21 @@ class Settings(BaseSettings):
     @field_validator("allowed_origin")
     @classmethod
     def validate_origin(cls, v: str) -> str:
-        if not v.startswith(("http://", "https://")):
-            raise ValueError("ALLOWED_ORIGIN must start with http:// or https://")
-        return v.rstrip("/")
+        origins = [o.strip() for o in v.split(",") if o.strip()]
+        for origin in origins:
+            if not origin.startswith(("http://", "https://")):
+                raise ValueError("Each origin in ALLOWED_ORIGIN must start with http:// or https://")
+        return ",".join(origins)
 
     @property
     def cors_origins(self) -> List[str]:
-        """Always include localhost for development; production adds Vercel origin."""
+        """Always include localhost for development; production adds Vercel origin(s)."""
         origins = ["http://localhost:5173", "http://localhost:3000"]
-        if self.allowed_origin not in origins:
-            origins.append(self.allowed_origin)
+        if self.allowed_origin:
+            for origin in self.allowed_origin.split(","):
+                cleaned = origin.strip().rstrip("/")
+                if cleaned and cleaned not in origins:
+                    origins.append(cleaned)
         return origins
 
 

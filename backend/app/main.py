@@ -26,8 +26,8 @@ app = FastAPI(
         "Stateless API for extracting structured text from PDFs and images, "
         "with optional rule-based engagement analysis."
     ),
-    docs_url="/docs" if settings.app_env == "development" else None,
-    redoc_url="/redoc" if settings.app_env == "development" else None,
+    docs_url="/docs",
+    redoc_url="/redoc",
 )
 
 # ── CORS — explicit origins only, never wildcard ──────────────────────────────
