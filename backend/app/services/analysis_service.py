@@ -61,6 +61,10 @@ except Exception as _tb_err:
 
 try:
     import nltk
+    import os
+    _render_nltk_path = "/opt/render/project/nltk_data"
+    if os.path.exists(_render_nltk_path) and _render_nltk_path not in nltk.data.path:
+        nltk.data.path.append(_render_nltk_path)
     from nltk.corpus import stopwords
     from nltk.tokenize import word_tokenize, sent_tokenize
     from nltk import FreqDist, pos_tag
