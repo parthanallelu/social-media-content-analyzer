@@ -40,6 +40,8 @@ social_media_content_analyzer/
 │   ├── tests/              # Pytest suites
 │   ├── render.yaml         # Render blueprint configuration
 │   ├── requirements.txt    # Python dependencies
+│   ├── Dockerfile          # Production Dockerfile
+│   ├── runtime.txt         # Pinned local Python runtime
 │   └── .env.example        # Environment variable template
 ├── frontend/
 │   ├── src/                # React components, stores, and hooks
@@ -102,22 +104,19 @@ social_media_content_analyzer/
 
 ## Deployment
 
-### Backend (Render)
+### Backend (Render - Docker)
 
-The backend is configured to be deployed as a Render Web Service. A `render.yaml` blueprint is included.
+The backend is configured to deploy as a Docker container on Render. This ensures all system-level dependencies for Tesseract OCR (`tesseract-ocr`, `libtesseract-dev`, `poppler-utils`) are pre-configured.
 
-1. Connect your repository to Render and deploy via the Blueprint `render.yaml`, OR create a manual Web Service.
-2. **Build Command**: 
-   ```bash
-   pip install -r requirements.txt && python -m nltk.downloader punkt punkt_tab averaged_perceptron_tagger stopwords wordnet
-   ```
-   *(Note: The `spaCy` model is downloaded directly via the wheel link in `requirements.txt` to save memory/build time).*
-3. **Start Command**: 
-   ```bash
-   uvicorn app.main:app --host 0.0.0.0 --port 10000
-   ```
+1. Connect your repository to Render.
+2. Render will automatically detect the `render.yaml` configuration and deploy it using the **Docker** environment.
+3. If setting up manually in the Render dashboard:
+   - **Environment**: Select `Docker`
+   - **Docker Context**: `backend`
+   - **Dockerfile Path**: `backend/Dockerfile`
 4. **Environment Variables**:
    - `ALLOWED_ORIGIN`: Set this to your frontend URL (e.g., `https://your-frontend.vercel.app`).
+   - `APP_ENV`: Set to `production`.
 
 ### Frontend (Vercel)
 
