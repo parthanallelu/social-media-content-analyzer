@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Global resets ─────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  /* Light Theme (Linear/Notion-like) */
+  --color-surface-900: 250 250 250; /* very light gray bg #fafafa */
+  --color-surface-800: 255 255 255; /* white cards #ffffff */
+  --color-surface-700: 244 244 245; /* zinc-100 hover bg */
+  --color-surface-600: 228 228 231; /* zinc-200 borders/dividers */
+  --color-surface-500: 212 212 216; /* zinc-300 */
+  
+  --color-primary-400: 96 165 250;  /* blue-400 */
+  --color-primary-500: 59 130 246;  /* blue-500 */
+  --color-primary-600: 37 99 235;   /* blue-600 (Main Action) */
+  --color-primary-700: 29 78 216;   /* blue-700 */
+  
+  --color-accent-400: 56 189 248;   /* sky-400 */
+  --color-accent-500: 14 165 233;   /* sky-500 */
+  --color-accent-600: 2 132 199;    /* sky-600 */
+  
+  --color-content-main: 24 24 27;   /* zinc-900 */
+  --color-content-muted: 82 82 91;  /* zinc-600 */
+  --color-content-faint: 113 113 122; /* zinc-500 */
+  
+  --border-subtle: #e4e4e7; /* zinc-200 */
+  --border-strong: #d4d4d8; /* zinc-300 */
+
+  --bg-hover: rgba(24, 24, 27, 0.04);
+  --bg-active: rgba(24, 24, 27, 0.08);
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-card-hover: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+  --shadow-glow: 0 0 12px rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="dark"] {
+  /* Dark Theme */
+  --color-surface-900: 15 15 18; /* Near black */
+  --color-surface-800: 24 24 27; /* zinc-900 */
+  --color-surface-700: 39 39 42; /* zinc-800 */
+  --color-surface-600: 63 63 70; /* zinc-700 */
+  --color-surface-500: 82 82 91; /* zinc-600 */
+  
+  --color-primary-400: 167 139 250;
+  --color-primary-500: 139 92 246;
+  --color-primary-600: 124 58 237;
+  --color-primary-700: 109 40 217;
+  
+  --color-accent-400: 129 140 248;
+  --color-accent-500: 99 102 241;
+  --color-accent-600: 79 70 229;
+  
+  --color-content-main: 250 250 250; /* zinc-50 */
+  --color-content-muted: 161 161 170; /* zinc-400 */
+  --color-content-faint: 113 113 122; /* zinc-500 */
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --bg-hover: rgba(255, 255, 255, 0.05);
+  --bg-active: rgba(255, 255, 255, 0.1);
+
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.5);
+  --shadow-card-hover: 0 8px 16px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 15px rgba(124, 58, 237, 0.25);
+}
+
+body {
+  margin: 0;
+  background-color: rgb(var(--color-surface-900));
+  color: rgb(var(--color-content-main));
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Scrollbar styling ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-surface-600));
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-surface-500));
+}
+
+/* ── Solid Modern Utilities (Replacing Glassmorphism) ──────────────────────── */
+@layer components {
+  .glass {
+    @apply bg-surface-800 border border-subtle shadow-card;
+  }
+
+  .glass-strong {
+    @apply bg-surface-800 border border-subtle shadow-card;
+  }
+
+  .card {
+    @apply glass rounded-2xl transition-shadow duration-300;
+  }
+
+  .card:hover {
+    @apply shadow-card-hover;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 via-accent-500 to-primary-600;
+  }
+
+  /* Shimmer skeleton loader */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgba(var(--color-surface-700), 1) 25%,
+      rgba(var(--color-surface-600), 1) 50%,
+      rgba(var(--color-surface-700), 1) 75%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer rounded-lg;
+  }
+
+  /* Solid Modern Buttons */
+  .btn-primary {
+    @apply relative inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm
+           bg-primary-600 text-white shadow-[var(--shadow-glow)]
+           transition-all duration-200
+           hover:bg-primary-700 hover:-translate-y-0.5
+           active:scale-[0.98]
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary-600 disabled:hover:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply relative inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm
+           bg-surface-800 border border-subtle text-content-main shadow-[var(--shadow-card)]
+           transition-all duration-200
+           hover:bg-surface-700 hover:-translate-y-0.5
+           active:scale-[0.98]
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium
+           text-content-muted transition-all duration-150;
+  }
+  .btn-ghost:hover {
+    color: rgb(var(--color-content-main));
+    background-color: var(--bg-hover);
+  }
+}
+
+/* ── Progress bar animation ────────────────────────────────────────────────── */
+@keyframes progress-indeterminate {
+  0% { transform: translateX(-100%) scaleX(0.5); }
+  50% { transform: translateX(0%) scaleX(0.8); }
+  100% { transform: translateX(100%) scaleX(0.5); }
+}
+
+.progress-indeterminate {
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+/* ── Drop zone pulse ring ──────────────────────────────────────────────────── */
+@keyframes dropzone-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-primary-600), 0.2); }
+  50% { box-shadow: 0 0 0 6px rgba(var(--color-primary-600), 0); }
+}
+
+.dropzone-active {
+  animation: dropzone-pulse 1.5s ease-in-out infinite;
+}
+
+/* ── Score ring animation ──────────────────────────────────────────────────── */
+@keyframes score-fill {
+  from { stroke-dashoffset: 220; }
+  to { stroke-dashoffset: var(--score-offset); }
+}
+
+.score-ring {
+  animation: score-fill 1s ease-out forwards;
+}
+
+/* ── Tab indicator ─────────────────────────────────────────────────────────── */
+.tab-active {
+  @apply text-primary-600;
+  position: relative;
+}
+
+.tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgb(var(--color-primary-600));
+  border-radius: 99px;
+}
