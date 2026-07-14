@@ -34,6 +34,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,   # ["http://localhost:5173", "https://<vercel-url>"]
+    allow_origin_regex=r"https://social-media-content-analyzer-[a-z0-9\-]+-partha-nallelu\.vercel\.app",
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type", "Accept"],

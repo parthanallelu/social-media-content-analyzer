@@ -50,6 +50,14 @@ function _normalizeError(error) {
     };
   }
 
+  // Handle plain text/HTML error responses (e.g. CORS disallowed origin)
+  if (typeof data === 'string' && data.trim()) {
+    return {
+      code: 'API_ERROR',
+      message: data,
+    };
+  }
+
   // FastAPI 422 validation error
   if (status === 422) {
     return {
