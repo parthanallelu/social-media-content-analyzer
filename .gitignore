@@ -1,0 +1,29 @@
+# Node
+node_modules/
+dist/
+build/
+.npm/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# Environment Variables
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Temp Media Storage
+.tempmediaStorage/
