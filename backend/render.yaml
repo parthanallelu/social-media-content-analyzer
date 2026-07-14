@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: social-media-content-analyzer-api
+    env: python
+    # Build: install deps, then pre-download NLTK corpora (spaCy model installs via pip wheel above)
+    # punkt/punkt_tab: sentence tokenisation
+    # averaged_perceptron_tagger: POS tagging
+    # stopwords: common word filtering for keyword extraction
+    # wordnet: lemmatisation used by keyword deduplication
+    buildCommand: >-
+      pip install -r requirements.txt &&
+      python -m nltk.downloader -d /opt/render/project/nltk_data
+      punkt punkt_tab averaged_perceptron_tagger stopwords wordnet
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: ALLOWED_ORIGIN
+        sync: false
+      - key: APP_ENV
+        value: production
+      - key: MAX_FILE_SIZE
+        value: 10485760

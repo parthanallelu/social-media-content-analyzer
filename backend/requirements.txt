@@ -1,0 +1,33 @@
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+pymupdf==1.24.3
+pytesseract==0.3.10
+Pillow==10.3.0
+opencv-python-headless==4.9.0.80
+python-magic-bin==0.4.14; sys_platform == "win32"
+python-magic==0.4.27; sys_platform != "win32"
+pydantic==2.7.1
+pydantic-settings==2.2.1
+pytest==8.2.0
+httpx==0.27.0
+pytest-asyncio==0.23.6
+
+# ── NLP: content analysis engine ─────────────────────────────────────────────
+# TextBlob: sentiment polarity/subjectivity + basic spelling correction
+textblob==0.18.0
+
+# NLTK: tokenisation, frequency distribution, POS tagging
+# Required corpora are downloaded at build time via render.yaml buildCommand:
+#   python -m nltk.downloader punkt punkt_tab averaged_perceptron_tagger stopwords wordnet
+nltk==3.8.1
+
+# spaCy + en_core_web_sm model (≈12 MB wheel, ≈50 MB resident memory).
+# ⚠️  Render free-tier memory note:
+#   - en_core_web_sm: ~50 MB resident — SAFE on 512 MB free tier
+#   - en_core_web_md: ~200 MB — marginal, avoid
+#   - en_core_web_lg: ~800 MB — will OOM, do NOT use
+# The model is installed as a pip package (no separate `spacy download` step needed),
+# keeping the buildCommand simple and reproducible.
+spacy==3.7.4
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
