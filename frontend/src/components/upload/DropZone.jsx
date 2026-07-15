@@ -54,7 +54,7 @@ export default function DropZone() {
       aria-label="File drop zone — drag and drop PDF or image files here, or click to browse"
     >
       {/* Hidden file input (fallback picker) */}
-      <input {...getInputProps()} id="file-input" aria-label="File input" />
+      <input {...getInputProps({ accept: '.pdf,.png,.jpg,.jpeg' })} id="file-input" aria-label="File input" />
 
       {/* Decorative background gradient */}
       <div className="absolute inset-0 rounded-xl bg-gradient-radial from-primary-600/5 via-transparent to-transparent pointer-events-none" />
