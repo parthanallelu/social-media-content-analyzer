@@ -1,5 +1,7 @@
 # Social Media Content Analyzer
 
+🔗 **[Live Demo](https://social-media-content-analyzer-qxmivvj9l-partha-nallelu.vercel.app/)**
+
 A production-ready web application designed to help users upload documents or images, extract their text, and analyze the content to generate social media engagement insights. 
 
 Built with a stateless Python backend and a highly responsive React frontend, the app prioritizes a clean, modern SaaS aesthetic.
@@ -126,4 +128,4 @@ The frontend is optimized for deployment on Vercel.
 2. **Build Command**: `npm run build`
 3. **Output Directory**: `dist`
 4. **Environment Variables**:
-   - `VITE_API_URL`: Set this to your deployed Render backend URL (e.g., `https://your-backend.onrender.com/api`).
+   - `VITE_API_BASE_URL`: Set this to your deployed Render backend URL (e.g., `https://your-backend.onrender.com`).
