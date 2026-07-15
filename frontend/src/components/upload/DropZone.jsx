@@ -12,9 +12,13 @@ import { useFileUpload } from '../../hooks/useFileUpload';
 export default function DropZone() {
   const { enqueueFiles } = useFileUpload();
 
-  const onDrop = useCallback((acceptedFiles) => {
-    if (acceptedFiles.length > 0) {
-      enqueueFiles(acceptedFiles);
+  const onDrop = useCallback((acceptedFiles, fileRejections) => {
+    const allFiles = [
+      ...acceptedFiles,
+      ...fileRejections.map((r) => r.file),
+    ];
+    if (allFiles.length > 0) {
+      enqueueFiles(allFiles);
     }
   }, [enqueueFiles]);
 
