@@ -31,7 +31,7 @@ The system utilizes a decoupled, session-scoped architecture:
 - **Frontend**: React (Vite), Zustand for state management, TailwindCSS for styling. State is persisted solely in the browser's `localStorage`.
 - **Backend**: Python (FastAPI), PyMuPDF (PDFs), Tesseract/OpenCV (Images), and spaCy/NLTK/TextBlob (NLP). 
 
-*There is no database.* The backend is completely stateless, meaning user data is never stored on the server. For a deeper dive into technical decisions, see `APPROACH.md`.
+*There is no database.* The backend is completely stateless, meaning user data is never stored on the server. For a deeper dive into technical decisions, see [APPROACH.md](APPROACH.md).
 
 ## Folder Structure
 
