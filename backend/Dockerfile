@@ -24,4 +24,6 @@ COPY . .
 
 # Expose port and define entrypoint
 EXPOSE 10000
+# Enable debug OCR comparison endpoint (set to 0 or remove after testing)
+ENV DEBUG_OCR=1
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "10000"]

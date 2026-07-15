@@ -1,5 +1,6 @@
 import logging
 import logging.config
+import os
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,7 +8,7 @@ from fastapi.responses import JSONResponse
 
 from app.config import settings
 from app.middleware.logging_middleware import LoggingMiddleware
-from app.routers import health, upload, analysis
+from app.routers import health, upload, analysis, debug
 from app.utils.error_handlers import AppException
 
 # ── Logging configuration ─────────────────────────────────────────────────────
@@ -47,6 +48,11 @@ app.add_middleware(LoggingMiddleware)
 app.include_router(health.router)
 app.include_router(upload.router)
 app.include_router(analysis.router)
+
+# Debug OCR comparison endpoint — only enabled when DEBUG_OCR=1
+if os.environ.get("DEBUG_OCR", "0") == "1":
+    app.include_router(debug.router)
+    logger.info("DEBUG_OCR=1 — /debug/ocr-compare endpoint is ENABLED")
 
 # ── Global exception handlers ─────────────────────────────────────────────────
 @app.exception_handler(AppException)
